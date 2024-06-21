@@ -25,15 +25,37 @@
     function startGame() {
         fetch('/start')
             .then(response => response.json())
-            .then(data => drawSnake(data));
+            .then(data => {
+            drawSnake(data);
+            fetchFood();
+        });
         setInterval(moveSnake, 100);
     }
 
     function moveSnake() {
         fetch('/move')
             .then(response => response.json())
-            .then(data => drawSnake(data));
+            .then(data => {
+            drawSnake(data);
+            fetchFood();
+        });
     }
+
+    function fetchFood() {
+    fetch('/getFood')
+        .then(response => response.json())
+        .then(data => drawFood(data));
+    }
+
+    function drawFood(food) {
+    const gameBoard = document.getElementById('game-board');
+    const foodElement = document.createElement('div');
+    foodElement.classList.add('dot');
+    foodElement.style.left = `${food.position.x * 10}px`;
+    foodElement.style.top = `${food.position.y * 10}px`;
+    foodElement.style.backgroundColor = 'red';
+    gameBoard.appendChild(foodElement);
+}
 
     function drawSnake(snake) {
         const gameBoard = document.getElementById('game-board');

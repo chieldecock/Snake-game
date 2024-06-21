@@ -20,6 +20,14 @@ public class Snake {
         this.body.add(initialPosition);
     }
 
+    public Position getHead() {
+        return body.get(0);
+    }
+
+    public void grow() {
+        this.length++;
+    }
+
     public void move() {
         Position head = body.get(0); // current head position
         Position newHead;
