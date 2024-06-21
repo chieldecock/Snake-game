@@ -1,8 +1,13 @@
 package com.sogeti.java.snake.snakegame.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.LinkedList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Snake {
     private int length;
     private String direction;
