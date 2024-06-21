@@ -3,6 +3,7 @@ package com.sogeti.java.snake.snakegame.controller;
 import com.sogeti.java.snake.snakegame.model.Position;
 import com.sogeti.java.snake.snakegame.model.Snake;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,6 +20,12 @@ public class GameController {
     @GetMapping("/move")
     public Snake moveSnake() {
         snake.move();
+        return snake;
+    }
+
+    @GetMapping("/changeDirection")
+    public Snake changeDirection(@RequestParam String direction) {
+        snake.setDirection(direction);
         return snake;
     }
 }
