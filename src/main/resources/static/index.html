@@ -20,13 +20,13 @@
 <body>
 <div id="game-board"></div>
 <button onclick="startGame()">Start Game</button>
-<button onclick="moveSnake()">Move Snake</button>
 
 <script>
     function startGame() {
         fetch('/start')
             .then(response => response.json())
             .then(data => drawSnake(data));
+        setInterval(moveSnake, 100);
     }
 
     function moveSnake() {
@@ -45,6 +45,29 @@
             dot.style.top = `${position.y * 10}px`;
             gameBoard.appendChild(dot);
         }
+    }
+
+    window.addEventListener('keydown', function(event) {
+        switch (event.key) {
+            case 'ArrowUp':
+                changeDirection('UP');
+                break;
+            case 'ArrowDown':
+                changeDirection('DOWN');
+                break;
+            case 'ArrowLeft':
+                changeDirection('LEFT');
+                break;
+            case 'ArrowRight':
+                changeDirection('RIGHT');
+                break;
+        }
+    });
+
+    function changeDirection(direction) {
+        fetch(`/changeDirection?direction=${direction}`)
+            .then(response => response.json())
+            .then(data => drawSnake(data));
     }
 </script>
 </body>
