@@ -5,47 +5,47 @@
     <style>
         #game-board {
             position: relative;
-            height: 300px;
-            width: 300px;
+            height: 400px;
+            width: 400px;
             border: 1px solid black;
         }
         .dot {
             position: absolute;
             height: 10px;
             width: 10px;
-            background-color: black;
+            background-color: green;
         }
     </style>
 </head>
 <body>
-    <div id="game-board"></div>
-    <button onclick="startGame()">Start Game</button>
-    <button onclick="moveSnake()">Move Snake</button>
+<div id="game-board"></div>
+<button onclick="startGame()">Start Game</button>
+<button onclick="moveSnake()">Move Snake</button>
 
-    <script>
-        function startGame() {
-            fetch('/start')
-                .then(response => response.json())
-                .then(data => drawSnake(data.snake));
-        }
+<script>
+    function startGame() {
+        fetch('/start')
+            .then(response => response.json())
+            .then(data => drawSnake(data));
+    }
 
-        function moveSnake() {
-            fetch('/move')
-                .then(response => response.json())
-                .then(data => drawSnake(data.snake));
-        }
+    function moveSnake() {
+        fetch('/move')
+            .then(response => response.json())
+            .then(data => drawSnake(data));
+    }
 
-        function drawSnake(snake) {
-            const gameBoard = document.getElementById('game-board');
-            gameBoard.innerHTML = ''; // Clear the game board
-            for (const position of snake.body) {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-                dot.style.left = `${position.x * 10}px`;
-                dot.style.top = `${position.y * 10}px`;
-                gameBoard.appendChild(dot);
-            }
+    function drawSnake(snake) {
+        const gameBoard = document.getElementById('game-board');
+        gameBoard.innerHTML = ''; // Clear the game board
+        for (const position of snake.body) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.left = `${position.x * 10}px`;
+            dot.style.top = `${position.y * 10}px`;
+            gameBoard.appendChild(dot);
         }
-    </script>
+    }
+</script>
 </body>
 </html>

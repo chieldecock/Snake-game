@@ -12,7 +12,7 @@ public class GameController {
 
     @GetMapping("/start")
     public Snake startGame() {
-        snake = new Snake(1, "UP", new Position(0, 0));
+        snake = new Snake(1, "UP", new Position(20, 20));
         return snake;
     }
 
