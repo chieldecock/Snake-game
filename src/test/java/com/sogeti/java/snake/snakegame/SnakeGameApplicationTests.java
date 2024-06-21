@@ -1,4 +1,4 @@
-package com.sogeti.java.snake.snake_game;
+package com.sogeti.java.snake.snakegame;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
