@@ -14,11 +14,12 @@ public class GameController {
 
     private Snake snake;
     private Food food;
+    private Random random = new Random();
 
     @GetMapping("/start")
     public Snake startGame() {
         snake = new Snake(1, "UP", new Position(20, 20));
-        food = new Food(new Position(new Random().nextInt(20), new Random().nextInt(20)));
+        food = generateNewFood();
         return snake;
     }
 
@@ -27,7 +28,7 @@ public class GameController {
         snake.move();
         if (snake.getHead().equals(food.getPosition())) {
             snake.grow();
-            food.setPosition(new Position(new Random().nextInt(20), new Random().nextInt(20)));
+            food = generateNewFood();
         }
         return snake;
     }
@@ -41,5 +42,15 @@ public class GameController {
     @GetMapping("/getFood")
     public Food getFood() {
         return food;
+    }
+
+    private Food generateNewFood() {
+        Position position;
+        do {
+            int x = random.nextInt(40);
+            int y = random.nextInt(40);
+            position = new Position(x, y);
+        } while (snake.getBody().contains(position));
+        return new Food(position);
     }
 }
