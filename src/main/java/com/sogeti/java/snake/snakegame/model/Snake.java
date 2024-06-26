@@ -12,12 +12,21 @@ public class Snake {
     private int length;
     private String direction;
     private List<Position> body;
+    private Food food; // The current food in the game
 
     public Snake(int initialLength, String initialDirection, Position initialPosition) {
         this.length = initialLength;
         this.direction = initialDirection;
         this.body = new LinkedList<>();
         this.body.add(initialPosition);
+    }
+
+    public Position getHead() {
+        return body.get(0);
+    }
+
+    public void grow() {
+        this.length++;
     }
 
     public void move() {
@@ -43,18 +52,8 @@ public class Snake {
 
         body.add(0, newHead); // add new head to the front of the body list
 
-        if (!hasEatenFood()) {
-            body.remove(body.size() - 1); // remove the tail if the snake has not eaten food
+        if (body.size() > length) {
+            body.remove(body.size() - 1); // remove the tail
         }
-    }
-
-    private boolean hasEatenFood() {
-        // TODO: Implement the logic to check if the snake has eaten food
-        return false;
-    }
-
-    public boolean checkSelfCollision() {
-        // TODO: Implement the logic to check if the snake has collided with itself
-        return false;
     }
 }
