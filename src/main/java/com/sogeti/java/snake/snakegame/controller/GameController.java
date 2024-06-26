@@ -18,7 +18,7 @@ public class GameController {
 
     @GetMapping("/start")
     public Snake startGame() {
-        snake = new Snake(1, "UP", new Position(20, 20));
+        snake = new Snake(1, "UP", new Position(10, 10));
         food = generateNewFood();
         return snake;
     }
@@ -47,8 +47,8 @@ public class GameController {
     private Food generateNewFood() {
         Position position;
         do {
-            int x = random.nextInt(40);
-            int y = random.nextInt(40);
+            int x = random.nextInt(20);
+            int y = random.nextInt(20);
             position = new Position(x, y);
         } while (snake.getBody().contains(position));
         return new Food(position);
