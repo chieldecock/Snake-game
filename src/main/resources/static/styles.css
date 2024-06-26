@@ -1,9 +1,14 @@
 #game-board {
-    position: relative;
-    height: 200px;
-    width: 200px;
-    border: 2px solid black;
+    width: 200px; /* or any other size */
+    height: 200px; /* or any other size */
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
 }
+
 .dot {
     position: absolute;
     height: 10px;

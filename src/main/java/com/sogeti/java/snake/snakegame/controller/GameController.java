@@ -1,12 +1,15 @@
 package com.sogeti.java.snake.snakegame.controller;
 
 import com.sogeti.java.snake.snakegame.model.Food;
+import com.sogeti.java.snake.snakegame.model.Obstacle;
 import com.sogeti.java.snake.snakegame.model.Position;
 import com.sogeti.java.snake.snakegame.model.Snake;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @RestController
@@ -14,21 +17,45 @@ public class GameController {
 
     private Snake snake;
     private Food food;
-    private Random random = new Random();
+    private List<Obstacle> obstacles;
+    private final Random random = new Random();
 
     @GetMapping("/start")
     public Snake startGame() {
         snake = new Snake(1, "UP", new Position(10, 10));
         food = generateNewFood();
+        obstacles = generateObstacles();
         return snake;
+    }
+
+    private List<Obstacle> generateObstacles() {
+        this.obstacles = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Position position;
+            do {
+                int x = random.nextInt(20);
+                int y = random.nextInt(20);
+                position = new Position(x, y);
+            } while (snake.getBody().contains(position) || position.equals(food.getPosition()));
+            obstacles.add(new Obstacle(position));
+        }
+        return obstacles;
     }
 
     @GetMapping("/move")
     public Snake moveSnake() {
         snake.move();
+        Position newHead = snake.getHead();
+
         if (snake.getHead().equals(food.getPosition())) {
             snake.grow();
             food = generateNewFood();
+        }
+
+        for (Obstacle obstacle : obstacles) {
+            if (newHead.equals(obstacle.getPosition())) {
+                throw new RuntimeException("Game over: Snake collided with an obstacle");
+            }
         }
         return snake;
     }
@@ -44,6 +71,11 @@ public class GameController {
         return food;
     }
 
+    @GetMapping("/getObstacles")
+    public List<Obstacle> getObstacles() {
+        return obstacles;
+    }
+
     private Food generateNewFood() {
         Position position;
         do {
@@ -53,4 +85,6 @@ public class GameController {
         } while (snake.getBody().contains(position));
         return new Food(position);
     }
+
+
 }
