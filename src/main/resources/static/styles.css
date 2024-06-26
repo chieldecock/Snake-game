@@ -1,17 +1,30 @@
 #game-board {
-    width: 200px; /* or any other size */
-    height: 200px; /* or any other size */
+    width: 400px; /* or any other size */
+    height: 400px; /* or any other size */
     margin: auto;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid black;
+    border: 2px solid black;
+    border-radius: 5px;
 }
 
 .dot {
     position: absolute;
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
     background-color: green;
+    border-radius: 50%;
+}
+
+#game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
+    font-weight: bold;
+    color: red;
+    display: none;
 }
