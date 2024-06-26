@@ -12,7 +12,6 @@ public class Snake {
     private int length;
     private String direction;
     private List<Position> body;
-    private Food food; // The current food in the game
 
     public Snake(int initialLength, String initialDirection, Position initialPosition) {
         this.length = initialLength;
@@ -35,16 +34,16 @@ public class Snake {
 
         switch (direction) {
             case "UP":
-                newHead = new Position(head.getX(), head.getY() - 1);
+                newHead = new Position(head.getX(), (head.getY() - 1 + 20) % 20);
                 break;
             case "DOWN":
-                newHead = new Position(head.getX(), head.getY() + 1);
+                newHead = new Position(head.getX(), (head.getY() + 1) % 20);
                 break;
             case "LEFT":
-                newHead = new Position(head.getX() - 1, head.getY());
+                newHead = new Position((head.getX() - 1 + 20) % 20, head.getY());
                 break;
             case "RIGHT":
-                newHead = new Position(head.getX() + 1, head.getY());
+                newHead = new Position((head.getX() + 1) % 20, head.getY());
                 break;
             default:
                 throw new IllegalArgumentException("Invalid direction: " + direction);
