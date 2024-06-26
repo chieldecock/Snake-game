@@ -42,23 +42,29 @@ public class GameController {
         return obstacles;
     }
 
-    @GetMapping("/move")
-    public Snake moveSnake() {
-        snake.move();
-        Position newHead = snake.getHead();
+@GetMapping("/move")
+public Snake moveSnake() {
+    snake.move();
+    Position newHead = snake.getHead();
 
-        if (snake.getHead().equals(food.getPosition())) {
-            snake.grow();
-            food = generateNewFood();
-        }
-
-        for (Obstacle obstacle : obstacles) {
-            if (newHead.equals(obstacle.getPosition())) {
-                throw new RuntimeException("Game over: Snake collided with an obstacle");
-            }
-        }
-        return snake;
+    // Check if the snake has collided with itself
+    List<Position> bodyWithoutHead = snake.getBody().subList(1, snake.getBody().size());
+    if (bodyWithoutHead.contains(newHead)) {
+        throw new RuntimeException("Game over: Snake collided with itself");
     }
+
+    if (snake.getHead().equals(food.getPosition())) {
+        snake.grow();
+        food = generateNewFood();
+    }
+
+    for (Obstacle obstacle : obstacles) {
+        if (newHead.equals(obstacle.getPosition())) {
+            throw new RuntimeException("Game over: Snake collided with an obstacle");
+        }
+    }
+    return snake;
+}
 
     @GetMapping("/changeDirection")
     public Snake changeDirection(@RequestParam String direction) {
