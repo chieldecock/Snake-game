@@ -53,9 +53,9 @@ h2 {
 
 #game-over {
     position: absolute;
-    top: 50%;
+    bottom: calc(50% + 200px); /* 50% is de helft van de body, 200px is de helft van de hoogte van het game-board */
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     font-size: 50px;
     font-weight: bold;
     color: red;
