@@ -19,9 +19,11 @@ public class GameController {
     private Food food;
     private List<Obstacle> obstacles;
     private final Random random = new Random();
+    private boolean gameOver = false;
 
     @GetMapping("/start")
     public Snake startGame() {
+        gameOver = false;
         snake = new Snake(1, "UP", new Position(10, 10));
         food = generateNewFood();
         obstacles = generateObstacles();
@@ -44,8 +46,19 @@ public class GameController {
 
     @GetMapping("/move")
     public Snake moveSnake() {
+        if (gameOver) {
+            throw new RuntimeException("Game over");
+        }
+
         snake.move();
         Position newHead = snake.getHead();
+
+        // Check if the snake has collided with itself
+        List<Position> bodyWithoutHead = snake.getBody().subList(1, snake.getBody().size());
+        if (bodyWithoutHead.contains(newHead)) {
+            gameOver = true;
+            throw new RuntimeException("Game over: Snake collided with itself");
+        }
 
         if (snake.getHead().equals(food.getPosition())) {
             snake.grow();
@@ -54,6 +67,7 @@ public class GameController {
 
         for (Obstacle obstacle : obstacles) {
             if (newHead.equals(obstacle.getPosition())) {
+                gameOver = true;
                 throw new RuntimeException("Game over: Snake collided with an obstacle");
             }
         }
