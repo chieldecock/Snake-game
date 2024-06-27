@@ -12,7 +12,7 @@ function startGame() {
         });
 }
 
-    function moveSnake() {
+function moveSnake() {
     fetch('/move')
         .then(response => {
             if (!response.ok) {
@@ -27,11 +27,12 @@ function startGame() {
             } else {
                 drawSnake(data);
                 fetchFood();
+                updateScore();
             }
         })
         .catch(error => {
             clearInterval(gameInterval); // Stop the game
-            document.getElementById('game-over').style.display = 'block'; // Show the game over messagee
+            document.getElementById('game-over').style.display = 'block'; // Show the game over message
         });
 }
 
@@ -66,7 +67,6 @@ function startGame() {
     foodElement.classList.add('food');
     foodElement.style.left = `${food.position.x * 20}px`;
     foodElement.style.top = `${food.position.y * 20}px`;
-    foodElement.style.backgroundColor = 'red';
     foodContainer.appendChild(foodElement);
 }
 
@@ -89,7 +89,6 @@ function startGame() {
         obstacleElement.classList.add('obstacle');
         obstacleElement.style.left = `${obstacle.position.x * 20}px`;
         obstacleElement.style.top = `${obstacle.position.y * 20}px`;
-//        obstacleElement.style.backgroundColor = 'grey';
         obstaclesContainer.appendChild(obstacleElement);
     }
 }
@@ -98,6 +97,14 @@ function fetchObstacles() {
     fetch('/getObstacles')
         .then(response => response.json())
         .then(data => drawObstacles(data));
+}
+
+function updateScore() {
+    fetch('/getScore')
+        .then(response => response.json())
+        .then(score => {
+            document.getElementById('score').innerText = `Score: ${score}`; // Update de score in het HTML-element
+        });
 }
 
     window.addEventListener('keydown', function(event) {
