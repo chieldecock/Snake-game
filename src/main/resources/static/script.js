@@ -75,17 +75,36 @@ function moveSnake() {
     foodContainer.appendChild(foodElement);
 }
 
-    function drawSnake(snake) {
-        const snakeContainer = document.getElementById('snake-container');
-        snakeContainer.innerHTML = ''; // Clear the snake container
-        for (const position of snake.body) {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            dot.style.left = `${position.x * 20}px`;
-            dot.style.top = `${position.y * 20}px`;
-            snakeContainer.appendChild(dot);
+function drawSnake(snake) {
+    const snakeContainer = document.getElementById('snake-container');
+    snakeContainer.innerHTML = ''; // Clear the snake container
+    for (let i = 0; i < snake.body.length; i++) {
+        const dot = document.createElement('div');
+        if (i === 0) {
+            dot.classList.add('snake-head');
+            // Set the rotation based on the direction
+            switch (snake.direction) {
+                case 'UP':
+                    dot.style.transform = 'rotate(180deg)';
+                    break;
+                case 'DOWN':
+                    dot.style.transform = 'rotate(0deg)';
+                    break;
+                case 'LEFT':
+                    dot.style.transform = 'rotate(90deg)';
+                    break;
+                case 'RIGHT':
+                    dot.style.transform = 'rotate(270deg)';
+                    break;
+            }
+        } else {
+            dot.classList.add('snake-body');
         }
+        dot.style.left = `${snake.body[i].x * 20}px`;
+        dot.style.top = `${snake.body[i].y * 20}px`;
+        snakeContainer.appendChild(dot);
     }
+}
 
     function drawObstacles(obstacles) {
     const obstaclesContainer = document.getElementById('obstacles-container');
