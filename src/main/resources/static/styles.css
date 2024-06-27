@@ -18,6 +18,13 @@
     border-radius: 50%;
 }
 
+.obstacle {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-color: grey;
+}
+
 #game-over {
     position: absolute;
     top: 50%;

@@ -86,10 +86,10 @@ function startGame() {
     const obstaclesContainer = document.getElementById('obstacles-container');
     for (const obstacle of obstacles) {
         const obstacleElement = document.createElement('div');
-        obstacleElement.classList.add('dot');
+        obstacleElement.classList.add('obstacle');
         obstacleElement.style.left = `${obstacle.position.x * 20}px`;
         obstacleElement.style.top = `${obstacle.position.y * 20}px`;
-        obstacleElement.style.backgroundColor = 'grey';
+//        obstacleElement.style.backgroundColor = 'grey';
         obstaclesContainer.appendChild(obstacleElement);
     }
 }
