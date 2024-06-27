@@ -10,6 +10,24 @@
     border-radius: 5px;
 }
 
+body {
+    padding-top: 230px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3em; /* Verander de tekstgrootte */
+    font-weight: bold; /* Maak de tekst dikgedrukt */
+    margin-bottom: 0;
+}
+
+h2 {
+    margin-top:0;
+}
+
 .dot {
     position: absolute;
     height: 20px;
