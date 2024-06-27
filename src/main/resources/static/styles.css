@@ -16,6 +16,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-family: Arial, sans-serif;
 }
 
 h1 {
@@ -26,6 +27,12 @@ h1 {
 
 h2 {
     margin-top:0;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 0.7em;
+    margin-top: 0;
 }
 
 .dot {
@@ -67,10 +74,22 @@ h2 {
     top: calc(50% + 200px); /* 50% is de helft van de body, 200px is de helft van de hoogte van het game-board */
     right: calc(50% - 200px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
     transform: translateX(-50%);
+    transform: translateY(0);
     font-size: 20px;
     font-weight: bold;
     color: red;
     border: 1px solid red;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+#start-button {
+    position: absolute;
+    top: calc(50% + 200px); /* 50% is de helft van de body, 100px is de helft van de hoogte van het game-board */
+    left: calc(50% - 200px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
+    transform: translateX(-50%);
+    transform: translateY(0);
+    margin-top: 10px;
+    font-size: 16px;
+    display: none;
 }
