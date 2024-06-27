@@ -20,22 +20,30 @@ public class Snake {
         this.body.add(initialPosition);
     }
 
+    public Position getHead() {
+        return body.get(0);
+    }
+
+    public void grow() {
+        this.length++;
+    }
+
     public void move() {
         Position head = body.get(0); // current head position
         Position newHead;
 
         switch (direction) {
             case "UP":
-                newHead = new Position(head.getX(), head.getY() - 1);
+                newHead = new Position(head.getX(), (head.getY() - 1 + 20) % 20);
                 break;
             case "DOWN":
-                newHead = new Position(head.getX(), head.getY() + 1);
+                newHead = new Position(head.getX(), (head.getY() + 1) % 20);
                 break;
             case "LEFT":
-                newHead = new Position(head.getX() - 1, head.getY());
+                newHead = new Position((head.getX() - 1 + 20) % 20, head.getY());
                 break;
             case "RIGHT":
-                newHead = new Position(head.getX() + 1, head.getY());
+                newHead = new Position((head.getX() + 1) % 20, head.getY());
                 break;
             default:
                 throw new IllegalArgumentException("Invalid direction: " + direction);
@@ -43,18 +51,8 @@ public class Snake {
 
         body.add(0, newHead); // add new head to the front of the body list
 
-        if (!hasEatenFood()) {
-            body.remove(body.size() - 1); // remove the tail if the snake has not eaten food
+        if (body.size() > length) {
+            body.remove(body.size() - 1); // remove the tail
         }
-    }
-
-    private boolean hasEatenFood() {
-        // TODO: Implement the logic to check if the snake has eaten food
-        return false;
-    }
-
-    public boolean checkSelfCollision() {
-        // TODO: Implement the logic to check if the snake has collided with itself
-        return false;
     }
 }
