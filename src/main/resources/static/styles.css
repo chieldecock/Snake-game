@@ -61,3 +61,16 @@ h2 {
     color: red;
     display: none;
 }
+
+#score {
+    position: absolute;
+    top: calc(50% + 200px); /* 50% is de helft van de body, 200px is de helft van de hoogte van het game-board */
+    right: calc(50% - 200px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
+    transform: translateX(-50%);
+    font-size: 20px;
+    font-weight: bold;
+    color: red;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin-top: 10px;
+}

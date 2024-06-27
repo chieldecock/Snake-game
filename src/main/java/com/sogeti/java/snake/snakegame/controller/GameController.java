@@ -20,6 +20,7 @@ public class GameController {
     private List<Obstacle> obstacles;
     private final Random random = new Random();
     private boolean gameOver = false;
+    private int score = 0;
 
     @GetMapping("/start")
     public Snake startGame() {
@@ -62,6 +63,7 @@ public class GameController {
 
         if (snake.getHead().equals(food.getPosition())) {
             snake.grow();
+            score++;
             food = generateNewFood();
         }
 
@@ -88,6 +90,11 @@ public class GameController {
     @GetMapping("/getObstacles")
     public List<Obstacle> getObstacles() {
         return obstacles;
+    }
+
+    @GetMapping("/getScore")
+    public int getScore() {
+        return score;
     }
 
     private Food generateNewFood() {
