@@ -24,15 +24,20 @@ function moveSnake() {
             if (data.gameOver) {
                 clearInterval(gameInterval); // Stop the game
                 document.getElementById('game-over').style.display = 'block'; // Show the game over message
+                document.getElementById('start-button').style.display = 'block'; // Show the start button
             } else {
                 drawSnake(data);
                 fetchFood();
-                updateScore();
+                updateScore(); // Update de score
             }
         })
         .catch(error => {
             clearInterval(gameInterval); // Stop the game
             document.getElementById('game-over').style.display = 'block'; // Show the game over message
+            document.getElementById('start-button').style.display = 'block'; // Show the start button
+            document.getElementById('start-button').addEventListener('click', function() {
+                                location.reload(); // Reload the page
+                            });
         });
 }
 

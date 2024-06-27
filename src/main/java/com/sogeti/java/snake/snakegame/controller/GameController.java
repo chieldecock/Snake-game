@@ -20,10 +20,11 @@ public class GameController {
     private List<Obstacle> obstacles;
     private final Random random = new Random();
     private boolean gameOver = false;
-    private int score = 0;
+    private int score;
 
     @GetMapping("/start")
     public Snake startGame() {
+        score = 0;
         gameOver = false;
         snake = new Snake(1, "UP", new Position(10, 10));
         food = generateNewFood();
