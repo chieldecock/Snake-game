@@ -63,7 +63,7 @@ function startGame() {
     const foodContainer = document.getElementById('food-container');
     foodContainer.innerHTML = ''; // Clear the food container
     const foodElement = document.createElement('div');
-    foodElement.classList.add('dot');
+    foodElement.classList.add('food');
     foodElement.style.left = `${food.position.x * 20}px`;
     foodElement.style.top = `${food.position.y * 20}px`;
     foodElement.style.backgroundColor = 'red';
