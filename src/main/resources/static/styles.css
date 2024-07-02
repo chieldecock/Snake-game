@@ -1,6 +1,27 @@
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 80vh;
+    overflow: auto;
+}
+
+#game-container {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 #game-board {
-    width: 400px; /* or any other size */
-    height: 400px; /* or any other size */
+    width: 50vw; /* 50% van de viewport breedte */
+    height: 50vw; /* 50% van de viewport hoogte */
+    max-width: 400px; /* or any other size */
+    max-height: 400px; /* or any other size */
+    min-width: 200px; /* or any other size */
+    min-height: 200px; /* or any other size */
     margin: auto;
     position: absolute;
     top: 50%;
@@ -13,32 +34,55 @@
     border-color: #61dafb; /* lichte blauwe kleur voor de rand van het spelbord */
 }
 
+#game-board.game-over {
+    border-color: #e36387; /* Roze kleur voor de game over tekst */
+}
+
 body {
     padding-top: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background-color: #282c34; /* donkere achtergrondkleur */
     color: white; /* witte tekstkleur */
     font-family: 'Roboto', sans-serif; /* modern lettertype */
 }
 
+#header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 h1 {
-    font-size: 3em;
+    font-size: 4vw;
     font-weight: bold;
     margin-bottom: 0;
 }
 
 h2 {
+    font-size: 1.5vw;
     margin-top:0;
     margin-bottom: 0;
 }
 
 h3 {
-    font-size: 0.7em;
-    margin-top: 0;
-    margin-bottom: 3;
+    font-size: 1vh;
+    margin-top: 2;
+    margin-bottom: 0;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 h1, h2 {
@@ -47,31 +91,31 @@ h1, h2 {
 
 .snake-head {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
+    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-image: url('snake-head.png');
     background-size: cover;
 }
 
 .snake-body {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
+    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-color: #8CC63E;
     border-radius: 40%;
 }
 
 .obstacle {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
+    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-color: grey;
 }
 
 .food {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
+    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-color: #e36387; /* roze kleur voor het voedsel */
     border-radius: 50%;
 }
@@ -84,8 +128,10 @@ h1, h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10; /* Zorg ervoor dat de overlay boven andere elementen wordt weergegeven */
-    width: 400px;
-    height: 400px;
+    width: 50vw; /* 50% van de viewport breedte */
+    height: 50vw; /* 50% van de viewport hoogte */
+    max-width: 400px; /* or any other size */
+    max-height: 400px; /* or any other size */
     background-color: rgba(0, 0, 0, 0.3); /* Zwarte achtergrond met 30% transparantie */
 }
 
@@ -98,27 +144,25 @@ h1, h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 12; /* Zorg ervoor dat de overlay boven andere elementen wordt weergegeven */
-    font-size: 50px;
+    font-size: calc(min(3.5vw, 380px)); /* 3% van de viewport breedte */
     font-weight: bold;
     color: #e36387; /* Roze kleur voor de game over tekst */
 }
 
 #score {
     position: absolute;
-    top: calc(50% - 190px);
-    left: calc(50% + 250px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
+    top: 26.5%;
+    left: 70%;
     transform: translateY(-50%);
     font-size: 20px;
     font-weight: bold;
     color: #e36387; /* roze kleur voor de score en game over teksten */
     border: 1px solid #e36387;
     border-radius: 5px;
-    margin-left: 10px; /* voegt wat ruimte toe aan de linkerkant van het score-element */
 }
 
 #start-button {
     position: absolute;
-    top: calc(50% + 210px);
     background-color: #61dafb; /* lichte blauwe kleur voor de knop */
     transition: background-color 0.3s ease; /* overgangseffect */
     color: white; /* Tekstkleur */
@@ -129,6 +173,8 @@ h1, h2 {
     text-decoration: none; /* Verwijder de onderstreping */
     display: inline-block;
     font-size: 16px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
 #start-button:hover {

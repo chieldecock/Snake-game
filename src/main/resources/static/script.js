@@ -2,6 +2,8 @@ let gameInterval;
 
 function startGame() {
 document.getElementById('game-over').style.display = 'none'; // Hide the game over message
+const gameBoard = document.getElementById('game-board');
+gameBoard.classList.remove('game-over');
     fetch('/start')
         .then(response => response.json())
         .then(data => {
@@ -35,6 +37,8 @@ function moveSnake() {
             clearInterval(gameInterval); // Stop the game
             document.getElementById('game-over').style.display = 'block'; // Show the game over message
             document.getElementById('game-over-overlay').style.display = 'block'; // Show the game over overlay
+            const gameBoard = document.getElementById('game-board');
+            gameBoard.classList.add('game-over');
             document.getElementById('start-button').style.display = 'block'; // Show the start button
             document.getElementById('start-button').addEventListener('click', function() {
                                 location.reload(); // Reload the page
@@ -71,8 +75,8 @@ function moveSnake() {
     foodContainer.innerHTML = ''; // Clear the food container
     const foodElement = document.createElement('div');
     foodElement.classList.add('food');
-    foodElement.style.left = `${food.position.x * 20}px`;
-    foodElement.style.top = `${food.position.y * 20}px`;
+    foodElement.style.left = `${food.position.x * 5}%`;
+    foodElement.style.top = `${food.position.y * 5}%`;
     foodContainer.appendChild(foodElement);
 }
 
@@ -101,8 +105,8 @@ function drawSnake(snake) {
         } else {
             dot.classList.add('snake-body');
         }
-        dot.style.left = `${snake.body[i].x * 20}px`;
-        dot.style.top = `${snake.body[i].y * 20}px`;
+        dot.style.left = `${snake.body[i].x * 5}%`;
+        dot.style.top = `${snake.body[i].y * 5}%`;
         snakeContainer.appendChild(dot);
     }
 }
@@ -112,8 +116,8 @@ function drawSnake(snake) {
     for (const obstacle of obstacles) {
         const obstacleElement = document.createElement('div');
         obstacleElement.classList.add('obstacle');
-        obstacleElement.style.left = `${obstacle.position.x * 20}px`;
-        obstacleElement.style.top = `${obstacle.position.y * 20}px`;
+        obstacleElement.style.left = `${obstacle.position.x * 5}%`;
+        obstacleElement.style.top = `${obstacle.position.y * 5}%`;
         obstaclesContainer.appendChild(obstacleElement);
     }
 }
