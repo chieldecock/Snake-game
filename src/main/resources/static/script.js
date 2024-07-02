@@ -1,10 +1,10 @@
 let gameInterval;
 
 function startGame() {
+document.getElementById('game-over').style.display = 'none'; // Hide the game over message
     fetch('/start')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('game-over').style.display = 'none'; // Hide the game over message
             createContainers();
             drawSnake(data);
             fetchFood();
@@ -34,6 +34,7 @@ function moveSnake() {
         .catch(error => {
             clearInterval(gameInterval); // Stop the game
             document.getElementById('game-over').style.display = 'block'; // Show the game over message
+            document.getElementById('game-over-overlay').style.display = 'block'; // Show the game over overlay
             document.getElementById('start-button').style.display = 'block'; // Show the start button
             document.getElementById('start-button').addEventListener('click', function() {
                                 location.reload(); // Reload the page
