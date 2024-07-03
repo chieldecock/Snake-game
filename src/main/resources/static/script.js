@@ -2,6 +2,7 @@ let gameInterval;
 
 function startGame() {
 document.getElementById('game-over').style.display = 'none'; // Hide the game over message
+document.getElementById('start-button').style.display = 'none'; // Hide the start button
 const gameBoard = document.getElementById('game-board');
 gameBoard.classList.remove('game-over');
     fetch('/start')
@@ -36,7 +37,6 @@ function moveSnake() {
         .catch(error => {
             clearInterval(gameInterval); // Stop the game
             document.getElementById('game-over').style.display = 'block'; // Show the game over message
-            document.getElementById('game-over-overlay').style.display = 'block'; // Show the game over overlay
             const gameBoard = document.getElementById('game-board');
             gameBoard.classList.add('game-over');
             document.getElementById('start-button').style.display = 'block'; // Show the start button

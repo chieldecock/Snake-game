@@ -1,82 +1,114 @@
 #main-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
     height: 80vh;
     overflow: auto;
 }
 
-#game-container {
-    height: 40vh;
+#header-container, #footer-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#header-container {
+    margin-top: 5vh;
+    justify-content: space-between;
+}
+
+#footer-container {
+    height: 5vh;
     justify-content: center;
 }
 
+#game-container {
+    height: 70vh;
+    display: flex;
+    flex-direction: row; /* Zorgt ervoor dat de kinderen naast elkaar worden geplaatst */
+    justify-content: center; /* Centreert de kinderen horizontaal */
+    align-items: center; /* Centreert de kinderen verticaal */
+}
+
+#game-board-container {
+    flex: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30vw; /* 20% van de viewport breedte */
+    margin-right: 5vw;
+}
+
 #game-board {
+    flex: 1;
     width: 50vw; /* 50% van de viewport breedte */
-    height: 50vw; /* 50% van de viewport hoogte */
+    height: 50vw; /* 50% van de viewport breedte */
     max-width: 400px; /* or any other size */
     max-height: 400px; /* or any other size */
     min-width: 200px; /* or any other size */
     min-height: 200px; /* or any other size */
     margin: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid black;
+    border: 2px solid #61dafb;
     border-radius: 5px;
     box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
-    border-color: #61dafb; /* lichte blauwe kleur voor de rand van het spelbord */
+}
+
+#score-board {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px; /* or any other size */
+    margin-right: 205px; /* 20% van de viewport breedte */
+    margin-left: 5vw;
+    border: 2px solid #8CC63E;
+    border-radius: 5px;
+    box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    font-size: 20px;
+    font-weight: bold;
+    color: #8CC63E; /* roze kleur voor de score en game over teksten */
+}
+
+#score {
+    font-size: 20px;
+    font-weight: bold;
+    color: #8CC63E; /* roze kleur voor de score en game over teksten */
+    border: 1px solid #8CC63E;
+    border-radius: 5px;
 }
 
 #game-board.game-over {
     border-color: #e36387; /* Roze kleur voor de game over tekst */
+    z-index: 11; /* Zorg ervoor dat het speelveld boven de overlay wordt weergegeven */
+    background-color: rgba(0, 0, 0, 0.3); /* Zwarte achtergrond met 30% transparantie */
 }
 
 body {
-    padding-top: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
     background-color: #282c34; /* donkere achtergrondkleur */
     color: white; /* witte tekstkleur */
     font-family: 'Roboto', sans-serif; /* modern lettertype */
 }
 
-#header-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#footer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-}
 
 h1 {
-    font-size: 4vw;
+    font-size: 4.8vh;
     font-weight: bold;
     margin-bottom: 0;
 }
 
 h2 {
-    font-size: 1.5vw;
+    font-size: 1.5vh;
     margin-top:0;
     margin-bottom: 0;
 }
 
 h3 {
-    font-size: 1vh;
+    font-size: 1.3vh;
+    font-weight: normal;
     margin-top: 2;
     margin-bottom: 0;
     position: fixed;
@@ -119,62 +151,39 @@ h1, h2 {
     background-color: #e36387; /* roze kleur voor het voedsel */
     border-radius: 50%;
 }
-#game-over-overlay {
-    display: none; /* Verberg de overlay standaard */
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10; /* Zorg ervoor dat de overlay boven andere elementen wordt weergegeven */
-    width: 50vw; /* 50% van de viewport breedte */
-    height: 50vw; /* 50% van de viewport hoogte */
-    max-width: 400px; /* or any other size */
-    max-height: 400px; /* or any other size */
-    background-color: rgba(0, 0, 0, 0.3); /* Zwarte achtergrond met 30% transparantie */
-}
 
 #game-over {
     display: none; /* Verberg de overlay standaard */
-    justify-content: center;
-    align-items: center;
+    margin: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     z-index: 12; /* Zorg ervoor dat de overlay boven andere elementen wordt weergegeven */
-    font-size: calc(min(3.5vw, 380px)); /* 3% van de viewport breedte */
+    font-size: 3.5vw; /* 3% van de viewport breedte */
     font-weight: bold;
     color: #e36387; /* Roze kleur voor de game over tekst */
 }
 
-#score {
-    position: absolute;
-    top: 26.5%;
-    left: 70%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    font-weight: bold;
-    color: #e36387; /* roze kleur voor de score en game over teksten */
-    border: 1px solid #e36387;
-    border-radius: 5px;
+#start-button-container {
+    height: 20vh;
+    display: flex;
+    align-items: center; /* Centreer de start-knop verticaal */
+    justify-content: center; /* Centreer de start-knop horizontaal */
 }
 
 #start-button {
-    position: absolute;
+    display: none;
     background-color: #61dafb; /* lichte blauwe kleur voor de knop */
     transition: background-color 0.3s ease; /* overgangseffect */
     color: white; /* Tekstkleur */
     border: none; /* Verwijder de standaardrand */
     border-radius: 12px; /* Afgeronde randen */
-    padding: 15px 32px; /* Padding om de tekst */
+    padding: 10px 25px; /* Padding om de tekst */
     text-align: center; /* Centreer de tekst */
     text-decoration: none; /* Verwijder de onderstreping */
     display: inline-block;
-    font-size: 16px;
+    font-size: 2.5vw;
+    font-size: min(max(2.5vw, 10px), 18px); /* Stelt een minimum van 2.5vw en een maximum van 18px in */
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 #start-button:hover {
