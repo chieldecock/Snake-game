@@ -12,6 +12,7 @@ gameBoard.classList.remove('game-over');
             drawSnake(data);
             fetchFood();
             fetchObstacles();
+            gameInterval = null; // Zet de gameInterval op undefined
         });
 }
 
@@ -25,7 +26,6 @@ function moveSnake() {
         })
         .then(data => {
             if (data.gameOver) {
-                clearInterval(gameInterval); // Stop the game
                 document.getElementById('game-over').style.display = 'block'; // Show the game over message
                 document.getElementById('start-button').style.display = 'block'; // Show the start button
             } else {
@@ -41,7 +41,7 @@ function moveSnake() {
             gameBoard.classList.add('game-over');
             document.getElementById('start-button').style.display = 'block'; // Show the start button
             document.getElementById('start-button').addEventListener('click', function() {
-                                location.reload(); // Reload the page
+                                resetGame(); // Roep de functie resetGame aan als er op de startknop wordt geklikt
                             });
         });
 }
@@ -167,3 +167,11 @@ function updateScore() {
     window.onload = function() {
     startGame();
 };
+
+function resetGame() {
+    document.getElementById('game-over').style.display = 'none'; // Verberg de game over melding
+    document.getElementById('start-button').style.display = 'none'; // Verberg de startknop
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.focus(); // Zet focus op het speelveld
+    startGame(); // Start het spel opnieuw
+}
