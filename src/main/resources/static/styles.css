@@ -1,103 +1,233 @@
+#main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    height: 80vh;
+    overflow: auto;
+}
+
+#header-container, #footer-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#header-container {
+    margin-top: 5vh;
+    justify-content: space-between;
+}
+
+#footer-container {
+    height: 5vh;
+    justify-content: center;
+}
+
+#game-container {
+    height: 70vh;
+    display: flex;
+    flex-direction: row; /* Zorgt ervoor dat de kinderen naast elkaar worden geplaatst */
+    justify-content: center; /* Centreert de kinderen horizontaal */
+    align-items: center; /* Centreert de kinderen verticaal */
+}
+
+#game-board-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #game-board {
-    width: 400px; /* or any other size */
-    height: 400px; /* or any other size */
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 2px solid black;
+    width: 50vw; /* 50% van de viewport breedte */
+    height: 50vw; /* 50% van de viewport breedte */
+    max-width: 400px; /* or any other size */
+    max-height: 400px; /* or any other size */
+    min-width: 200px; /* or any other size */
+    min-height: 200px; /* or any other size */
+    position: relative;
+    border: 2px solid #61dafb;
     border-radius: 5px;
+    box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+}
+
+#score-board {
+    width: 50vw; /* 50% van de viewport breedte */
+    height: 50vw; /* 50% van de viewport breedte */
+    max-width: 150px; /* or any other size */
+    max-height: 400px; /* or any other size */
+    min-width: 50px; /* or any other size */
+    min-height: 200px; /* or any other size */
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 0.5vw;
+    margin-left: 1vw;
+    border: 2px solid #8CC63E;
+    border-radius: 5px;
+    box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease-in-out;
+    color: #8CC63E; /* roze kleur voor de score en game over teksten */
+}
+
+#score {
+    font-size: 1.2vw;
+    font-weight: normal;
+    color: #8CC63E;
+}
+
+#game-board.game-over {
+    border-color: #e36387; /* Roze kleur voor de game over tekst */
+    z-index: 11; /* Zorg ervoor dat het speelveld boven de overlay wordt weergegeven */
+    background-color: rgba(0, 0, 0, 0.3); /* Zwarte achtergrond met 30% transparantie */
 }
 
 body {
-    padding-top: 230px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
+    background-color: #282c34; /* donkere achtergrondkleur */
+    color: white; /* witte tekstkleur */
+    font-family: 'Roboto', sans-serif; /* modern lettertype */
 }
 
+
 h1 {
-    font-size: 3em; /* Verander de tekstgrootte */
-    font-weight: bold; /* Maak de tekst dikgedrukt */
+    font-size: 4.8vh;
+    font-weight: bold;
     margin-bottom: 0;
 }
 
 h2 {
+    font-size: 1.5vh;
     margin-top:0;
     margin-bottom: 0;
 }
 
 h3 {
-    font-size: 0.7em;
-    margin-top: 0;
+    font-size: 1.3vh;
+    font-weight: normal;
+    margin-top: 2;
+    margin-bottom: 0;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h4 {
+    font-size: 1.2vw;
+    font-weight: bold;
+    }
+
+h1, h2 {
+    color: #61dafb; /* lichte blauwe kleur voor koppen */
 }
 
 .snake-head {
     position: absolute;
-    height: 20px;
-    width: 20px;
+    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
+    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-image: url('snake-head.png');
     background-size: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth below the snake body */
 }
 
 .snake-body {
     position: absolute;
-    height: 20px;
-    width: 20px;
-    background-color: #8CC63E;
-    border-radius: 40%;
+    height: 5%; /* Adjust based on your game's design */
+    width: 5%; /* Adjust based on your game's design */
+    background-image: linear-gradient(to bottom, #a4e075, #8CC63E, #5d8c2a); /* Simulates a curved surface */
+    border-radius: 50%; /* Fully rounded to simulate a segment of the snake body */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth below the snake body */
+    border: none; /* Assuming we're not using a border for simplicity */
+}
+
+/* Optional: Simulate a beveled edge using a pseudo-element or an additional shadow */
+.snake-body::before {
+    content: '';
+    position: absolute;
+    top: -2px; /* Slightly offset to the top to simulate a light source */
+    left: 0;
+    right: 0;
 }
 
 .obstacle {
     position: absolute;
-    height: 20px;
-    width: 20px;
-    background-color: grey;
+    height: 5%; /* Aanpassen op basis van het ontwerp van je spel */
+    width: 5%; /* Aanpassen op basis van het ontwerp van je spel */
+    background-image: repeating-linear-gradient(
+        45deg,
+        #707070,
+        #707070 10px,
+        #a0a0a0 10px,
+        #a0a0a0 20px
+    );
+    border-radius: 5%; /* Afgeronde hoeken voor een zachtere vorm */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3), /* Inner shadow voor diepte */
+                0 4px 8px rgba(0,0,0,0.4), /* Middelste laag */
+                0 8px 16px rgba(0,0,0,0.5), /* Buitenste laag voor meer diepte */
+                inset 0 1px 2px rgba(255,255,255,0.2); /* Lichtere inner shadow voor een glanzend effect */
+    z-index: -3;
 }
 
 .food {
     position: absolute;
-    height: 20px;
-    width: 20px;
-    background-color: red;
+    height: 5%; /* Aanpassen op basis van het ontwerp van je spel */
+    width: 5%; /* Aanpassen op basis van het ontwerp van je spel */
+    background-image: linear-gradient(to bottom right, #e36387, #ff0000); /* Kleurovergang van roze naar rood */
     border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2),
+                0 4px 8px rgba(0,0,0,0.2),
+                0 8px 16px rgba(0,0,0,0.2),
+                0 16px 32px rgba(0,0,0,0.2); /* Meerdere lagen schaduw voor diepte */
+}
+
+.food::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2); /* Lichtere kleur voor de reflectie */
+    z-index: -1;
 }
 
 #game-over {
+    display: none; /* Verberg de overlay standaard */
+    margin: auto;
     position: absolute;
-    bottom: calc(50% + 200px); /* 50% is de helft van de body, 200px is de helft van de hoogte van het game-board */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 50px;
+    z-index: 12; /* Zorg ervoor dat de overlay boven andere elementen wordt weergegeven */
+    font-size: 3.5vw; /* 3% van de viewport breedte */
     font-weight: bold;
-    color: red;
-    display: none;
+    color: #e36387; /* Roze kleur voor de game over tekst */
 }
 
-#score {
-    position: absolute;
-    top: calc(50% + 200px); /* 50% is de helft van de body, 200px is de helft van de hoogte van het game-board */
-    right: calc(50% - 200px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
-    transform: translateX(-50%);
-    transform: translateY(0);
-    font-size: 20px;
-    font-weight: bold;
-    color: red;
-    border: 1px solid red;
-    border-radius: 5px;
-    margin-top: 10px;
+#start-button-container {
+    height: 20vh;
+    display: flex;
+    align-items: center; /* Centreer de start-knop verticaal */
+    justify-content: center; /* Centreer de start-knop horizontaal */
 }
 
 #start-button {
-    position: absolute;
-    top: calc(50% + 200px); /* 50% is de helft van de body, 100px is de helft van de hoogte van het game-board */
-    left: calc(50% - 200px); /* 50% is de helft van de body, 50px is de helft van de breedte van het game-board */
-    transform: translateX(-50%);
-    transform: translateY(0);
-    margin-top: 10px;
-    font-size: 16px;
     display: none;
+    background-color: #61dafb; /* lichte blauwe kleur voor de knop */
+    transition: background-color 0.3s ease; /* overgangseffect */
+    color: white; /* Tekstkleur */
+    border: none; /* Verwijder de standaardrand */
+    border-radius: 12px; /* Afgeronde randen */
+    padding: 10px 25px; /* Padding om de tekst */
+    text-align: center; /* Centreer de tekst */
+    text-decoration: none; /* Verwijder de onderstreping */
+    display: inline-block;
+    font-size: 2.5vw;
+    font-size: min(max(2.5vw, 10px), 18px); /* Stelt een minimum van 2.5vw en een maximum van 18px in */
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#start-button:hover {
+    background-color: #8CC63E;
 }

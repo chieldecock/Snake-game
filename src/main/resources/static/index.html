@@ -5,13 +5,28 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-    <h1>Snake Game</h1>
-    <h2>A classical snake game</h2>
-    <h3>&copy; 2024 Chiel de Cock. Powered by GitHub Copilot.</h3>
-    <div id="game-over">GAME OVER</div>
-    <div id="game-board"></div>
-    <script src="script.js"></script>
-    <div id="score">Score: 0</div>
-    <button id="start-button">Start New Game</button>
+    <div id="main-container">
+        <div id="header-container">
+            <h1>Snake Game</h1>
+            <h2>A classical snake game</h2>
+        </div>
+        <div id="game-container">
+            <div id="game-board-container">
+                <div id="game-over">GAME OVER</div>
+                <div id="game-board"></div>
+                <script src="script.js"></script>
+            </div>
+            <div id="score-board">
+                <h4>TOP SCORES</h4>
+                <div id="score">Score 1: 0</div>
+            </div>
+        </div>
+        <div id="start-button-container">
+            <button id="start-button">Start New Game</button>
+        </div>
+        <div id="footer-container">
+            <h3 align="center">&copy; 2024 Chiel de Cock. Powered by GitHub Copilot.</h3>
+        </div>
+    </div>
 </body>
 </html>
