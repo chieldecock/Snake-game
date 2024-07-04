@@ -132,7 +132,7 @@ function updateScore() {
     fetch('/getScore')
         .then(response => response.json())
         .then(score => {
-            document.getElementById('score').innerText = `Score: ${score}`; // Update de score in het HTML-element
+            document.getElementById('score').innerText = `Score 1: ${score}`; // Update de score in het HTML-element
         });
 }
 

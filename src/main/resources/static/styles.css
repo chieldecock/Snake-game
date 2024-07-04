@@ -32,24 +32,19 @@
 }
 
 #game-board-container {
-    flex: 2;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 30vw; /* 20% van de viewport breedte */
-    margin-right: 5vw;
 }
 
 #game-board {
-    flex: 1;
     width: 50vw; /* 50% van de viewport breedte */
     height: 50vw; /* 50% van de viewport breedte */
     max-width: 400px; /* or any other size */
     max-height: 400px; /* or any other size */
     min-width: 200px; /* or any other size */
     min-height: 200px; /* or any other size */
-    margin: auto;
-    position: absolute;
+    position: relative;
     border: 2px solid #61dafb;
     border-radius: 5px;
     box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
@@ -57,28 +52,30 @@
 }
 
 #score-board {
-    flex: 1;
+    width: 50vw; /* 50% van de viewport breedte */
+    height: 50vw; /* 50% van de viewport breedte */
+    max-width: 150px; /* or any other size */
+    max-height: 400px; /* or any other size */
+    min-width: 50px; /* or any other size */
+    min-height: 200px; /* or any other size */
+    position: relative;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 200px; /* or any other size */
-    margin-right: 205px; /* 20% van de viewport breedte */
-    margin-left: 5vw;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-left: 0.5vw;
+    margin-left: 1vw;
     border: 2px solid #8CC63E;
     border-radius: 5px;
     box-shadow: 0px 10px 30px 2px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
-    font-size: 20px;
-    font-weight: bold;
     color: #8CC63E; /* roze kleur voor de score en game over teksten */
 }
 
 #score {
-    font-size: 20px;
-    font-weight: bold;
-    color: #8CC63E; /* roze kleur voor de score en game over teksten */
-    border: 1px solid #8CC63E;
-    border-radius: 5px;
+    font-size: 1.2vw;
+    font-weight: normal;
+    color: #8CC63E;
 }
 
 #game-board.game-over {
@@ -117,6 +114,11 @@ h3 {
     transform: translate(-50%, -50%);
 }
 
+h4 {
+    font-size: 1.2vw;
+    font-weight: bold;
+    }
+
 h1, h2 {
     color: #61dafb; /* lichte blauwe kleur voor koppen */
 }
@@ -127,14 +129,26 @@ h1, h2 {
     width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
     background-image: url('snake-head.png');
     background-size: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth below the snake body */
 }
 
 .snake-body {
     position: absolute;
-    height: 5%; /* Verander naar een percentage van de hoogte van het speelveld */
-    width: 5%; /* Verander naar een percentage van de breedte van het speelveld */
-    background-color: #8CC63E;
-    border-radius: 40%;
+    height: 5%; /* Adjust based on your game's design */
+    width: 5%; /* Adjust based on your game's design */
+    background-image: linear-gradient(to bottom, #a4e075, #8CC63E, #5d8c2a); /* Simulates a curved surface */
+    border-radius: 50%; /* Fully rounded to simulate a segment of the snake body */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Adds depth below the snake body */
+    border: none; /* Assuming we're not using a border for simplicity */
+}
+
+/* Optional: Simulate a beveled edge using a pseudo-element or an additional shadow */
+.snake-body::before {
+    content: '';
+    position: absolute;
+    top: -2px; /* Slightly offset to the top to simulate a light source */
+    left: 0;
+    right: 0;
 }
 
 .obstacle {
