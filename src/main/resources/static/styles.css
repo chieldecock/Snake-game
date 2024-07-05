@@ -72,8 +72,17 @@
     color: #8CC63E; /* roze kleur voor de score en game over teksten */
 }
 
+#top-scores-list {
+    padding-left: 0;
+    margin-top: 0.5vw;
+    font-size: 1vw;
+    font-weight: normal;
+    color: white;
+    list-style-type: none;
+}
+
 #score {
-    font-size: 1.2vw;
+    font-size: 1vw;
     font-weight: normal;
     color: #8CC63E;
 }
@@ -117,6 +126,8 @@ h3 {
 h4 {
     font-size: 1.2vw;
     font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
     }
 
 h1, h2 {
