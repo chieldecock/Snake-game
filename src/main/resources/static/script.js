@@ -1,44 +1,48 @@
 let gameInterval;
 
 function startGame() {
+document.getElementById('game-over').style.display = 'none'; // Hide the game over message
+document.getElementById('start-button').style.display = 'none'; // Hide the start button
+const gameBoard = document.getElementById('game-board');
+gameBoard.classList.remove('game-over');
     fetch('/start')
         .then(response => response.json())
         .then(data => {
-            document.getElementById('game-over').style.display = 'none'; // Hide the game over message
             createContainers();
             drawSnake(data);
             fetchFood();
             fetchObstacles();
+            gameInterval = null; // Zet de gameInterval op undefined
         });
 }
 
-function moveSnake() {
-    fetch('/move')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.gameOver) {
-                clearInterval(gameInterval); // Stop the game
-                document.getElementById('game-over').style.display = 'block'; // Show the game over message
-                document.getElementById('start-button').style.display = 'block'; // Show the start button
-            } else {
-                drawSnake(data);
-                fetchFood();
-                updateScore(); // Update de score
-            }
-        })
-        .catch(error => {
-            clearInterval(gameInterval); // Stop the game
-            document.getElementById('game-over').style.display = 'block'; // Show the game over message
-            document.getElementById('start-button').style.display = 'block'; // Show the start button
-            document.getElementById('start-button').addEventListener('click', function() {
-                                location.reload(); // Reload the page
-                            });
+async function moveSnake() {
+    try {
+        const response = await fetch('/move');
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        const data = await response.json();
+        if (data.gameOver) {
+            document.getElementById('game-over').style.display = 'block'; // Toon de game over melding
+            document.getElementById('start-button').style.display = 'block'; // Toon de startknop
+        } else {
+            drawSnake(data);
+            fetchFood();
+            updateScore(); // Update de score
+        }
+    } catch (error) {
+        clearInterval(gameInterval); // Stop het spel
+        const currentScore = await fetch('/getScore').then(res => res.json()); // Veronderstelt dat /getScore de huidige score teruggeeft
+        await addScore(currentScore); // Voeg de score toe aan de topscorelijst
+        document.getElementById('game-over').style.display = 'block'; // Toon de game over melding
+        const gameBoard = document.getElementById('game-board');
+        gameBoard.classList.add('game-over');
+        document.getElementById('start-button').style.display = 'block'; // Toon de startknop
+        document.getElementById('start-button').addEventListener('click', function() {
+            resetGame(); // Roep de functie resetGame aan als er op de startknop wordt geklikt
         });
+    }
 }
 
     function fetchFood() {
@@ -70,8 +74,8 @@ function moveSnake() {
     foodContainer.innerHTML = ''; // Clear the food container
     const foodElement = document.createElement('div');
     foodElement.classList.add('food');
-    foodElement.style.left = `${food.position.x * 20}px`;
-    foodElement.style.top = `${food.position.y * 20}px`;
+    foodElement.style.left = `${food.position.x * 5}%`;
+    foodElement.style.top = `${food.position.y * 5}%`;
     foodContainer.appendChild(foodElement);
 }
 
@@ -100,8 +104,8 @@ function drawSnake(snake) {
         } else {
             dot.classList.add('snake-body');
         }
-        dot.style.left = `${snake.body[i].x * 20}px`;
-        dot.style.top = `${snake.body[i].y * 20}px`;
+        dot.style.left = `${snake.body[i].x * 5}%`;
+        dot.style.top = `${snake.body[i].y * 5}%`;
         snakeContainer.appendChild(dot);
     }
 }
@@ -111,8 +115,8 @@ function drawSnake(snake) {
     for (const obstacle of obstacles) {
         const obstacleElement = document.createElement('div');
         obstacleElement.classList.add('obstacle');
-        obstacleElement.style.left = `${obstacle.position.x * 20}px`;
-        obstacleElement.style.top = `${obstacle.position.y * 20}px`;
+        obstacleElement.style.left = `${obstacle.position.x * 5}%`;
+        obstacleElement.style.top = `${obstacle.position.y * 5}%`;
         obstaclesContainer.appendChild(obstacleElement);
     }
 }
@@ -127,9 +131,49 @@ function updateScore() {
     fetch('/getScore')
         .then(response => response.json())
         .then(score => {
-            document.getElementById('score').innerText = `Score: ${score}`; // Update de score in het HTML-element
+            document.getElementById('score').innerText = `Current score: ${score}`; // Update de score in het HTML-element
         });
 }
+
+async function addScore(score) {
+    try {
+        const response = await fetch('/scores/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `score=${score}`
+        });
+        if (response.ok) {
+            console.log('Score successfully added');
+            fetchTopScores(); // Update de top scores lijst
+        } else {
+            console.error('Failed to add score');
+        }
+    } catch (error) {
+        console.error('Error adding score:', error);
+    }
+}
+
+async function fetchTopScores() {
+    try {
+        const response = await fetch('/scores/top');
+        const scores = await response.json();
+        const scoresListElement = document.getElementById('top-scores-list');
+        scoresListElement.innerHTML = ''; // Maak de lijst leeg voor nieuwe scores
+
+        scores.forEach((score, index) => {
+            const scoreItem = document.createElement('li');
+            scoreItem.textContent = `Score ${index + 1}: ${score}`;
+            scoresListElement.appendChild(scoreItem);
+        });
+    } catch (error) {
+        console.error('Error fetching top scores:', error);
+    }
+}
+
+// Roep deze functie op wanneer de pagina wordt geladen of wanneer nodig
+fetchTopScores();
 
     window.addEventListener('keydown', function(event) {
         switch (event.key) {
@@ -162,3 +206,11 @@ function updateScore() {
     window.onload = function() {
     startGame();
 };
+
+function resetGame() {
+    document.getElementById('game-over').style.display = 'none'; // Verberg de game over melding
+    document.getElementById('start-button').style.display = 'none'; // Verberg de startknop
+    const gameBoard = document.getElementById('game-board');
+    gameBoard.focus(); // Zet focus op het speelveld
+    startGame(); // Start het spel opnieuw
+}
