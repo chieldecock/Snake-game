@@ -52,11 +52,11 @@
 }
 
 #score-board {
-    width: 50vw; /* 50% van de viewport breedte */
+    width: 20vw; /* 50% van de viewport breedte */
     height: 50vw; /* 50% van de viewport breedte */
     max-width: 150px; /* or any other size */
     max-height: 400px; /* or any other size */
-    min-width: 50px; /* or any other size */
+    min-width: 25px; /* or any other size */
     min-height: 200px; /* or any other size */
     position: relative;
     display: flex;
@@ -72,8 +72,17 @@
     color: #8CC63E; /* roze kleur voor de score en game over teksten */
 }
 
+#top-scores-list {
+    padding-left: 0;
+    margin-top: 0.5vw;
+    font-size: clamp(10px, 1vw, 18px);
+    font-weight: normal;
+    color: white;
+    list-style-type: none;
+}
+
 #score {
-    font-size: 1.2vw;
+    font-size: clamp(10px, 1vw, 18px);
     font-weight: normal;
     color: #8CC63E;
 }
@@ -115,8 +124,10 @@ h3 {
 }
 
 h4 {
-    font-size: 1.2vw;
+    font-size: clamp(12px, 1.2vw, 22px);
     font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 0;
     }
 
 h1, h2 {
@@ -155,17 +166,12 @@ h1, h2 {
     position: absolute;
     height: 5%; /* Aanpassen op basis van het ontwerp van je spel */
     width: 5%; /* Aanpassen op basis van het ontwerp van je spel */
-    background-image: repeating-linear-gradient(
-        45deg,
-        #707070,
-        #707070 10px,
-        #a0a0a0 10px,
-        #a0a0a0 20px
-    );
-    border-radius: 5%; /* Afgeronde hoeken voor een zachtere vorm */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.3), /* Inner shadow voor diepte */
-                0 4px 8px rgba(0,0,0,0.4), /* Middelste laag */
-                0 8px 16px rgba(0,0,0,0.5), /* Buitenste laag voor meer diepte */
+    background-image: url('rock.png');
+    background-size: cover;
+    border-radius: 10%; /* Afgeronde hoeken voor een zachtere vorm */
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3), /* Inner shadow voor diepte */
+                0 2px 4px rgba(0,0,0,0.4), /* Middelste laag */
+                0 4px 8px rgba(0,0,0,0.5), /* Buitenste laag voor meer diepte */
                 inset 0 1px 2px rgba(255,255,255,0.2); /* Lichtere inner shadow voor een glanzend effect */
     z-index: -3;
 }
