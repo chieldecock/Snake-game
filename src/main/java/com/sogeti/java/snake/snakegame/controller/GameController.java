@@ -4,21 +4,20 @@ import com.sogeti.java.snake.snakegame.model.Food;
 import com.sogeti.java.snake.snakegame.model.Obstacle;
 import com.sogeti.java.snake.snakegame.model.Position;
 import com.sogeti.java.snake.snakegame.model.Snake;
+import com.sogeti.java.snake.snakegame.service.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @RestController
 public class GameController {
 
+    private final GameService gameService = new GameService();
     private Snake snake;
     private Food food;
     private List<Obstacle> obstacles;
-    private final Random random = new Random();
     private boolean gameOver = false;
     private int score;
 
@@ -27,23 +26,9 @@ public class GameController {
         score = 0;
         gameOver = false;
         snake = new Snake(1, "UP", new Position(10, 10));
-        food = generateNewFood();
-        obstacles = generateObstacles();
+        food = gameService.generateNewFood(snake);
+        obstacles = gameService.generateObstacles(snake, food);
         return snake;
-    }
-
-    private List<Obstacle> generateObstacles() {
-        this.obstacles = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            Position position;
-            do {
-                int x = random.nextInt(20);
-                int y = random.nextInt(20);
-                position = new Position(x, y);
-            } while (snake.getBody().contains(position) || position.equals(food.getPosition()));
-            obstacles.add(new Obstacle(position));
-        }
-        return obstacles;
     }
 
     @GetMapping("/move")
@@ -65,7 +50,7 @@ public class GameController {
         if (snake.getHead().equals(food.getPosition())) {
             snake.grow();
             score++;
-            food = generateNewFood();
+            food = gameService.generateNewFood(snake);
         }
 
         for (Obstacle obstacle : obstacles) {
@@ -97,16 +82,4 @@ public class GameController {
     public int getScore() {
         return score;
     }
-
-    private Food generateNewFood() {
-        Position position;
-        do {
-            int x = random.nextInt(20);
-            int y = random.nextInt(20);
-            position = new Position(x, y);
-        } while (snake.getBody().contains(position));
-        return new Food(position);
-    }
-
-
 }
