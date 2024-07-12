@@ -37,4 +37,14 @@ public class GameService {
         } while (snake.getBody().contains(position));
         return new Food(position);
     }
+
+    public boolean isFoodOnObstacle(Food food, List<Obstacle> obstacles) {
+    for (Obstacle obstacle : obstacles) {
+        if (food.getPosition().equals(obstacle.getPosition())) {
+            return true; // Food is placed on an obstacle
+        }
+    }
+    return false; // Food is not on any obstacle
+}
+
 }

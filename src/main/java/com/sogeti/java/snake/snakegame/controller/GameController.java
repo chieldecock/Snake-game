@@ -28,6 +28,10 @@ public class GameController {
         snake = new Snake(1, "UP", new Position(10, 10));
         food = gameService.generateNewFood(snake);
         obstacles = gameService.generateObstacles(snake, food);
+        while (gameService.isFoodOnObstacle(food, obstacles)) {
+            food = gameService.generateNewFood(snake);
+            System.out.println("Food placed on an obstacle. Regenerating food...");
+        }
         return snake;
     }
 
@@ -51,6 +55,10 @@ public class GameController {
             snake.grow();
             score++;
             food = gameService.generateNewFood(snake);
+            while (gameService.isFoodOnObstacle(food, obstacles)) {
+                food = gameService.generateNewFood(snake);
+                System.out.println("Food placed on an obstacle. Regenerating food...");
+            }
         }
 
         for (Obstacle obstacle : obstacles) {
