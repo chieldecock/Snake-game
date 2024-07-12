@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sogeti.java.snake</groupId>
     <artifactId>snake-game</artifactId>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <name>snake-game</name>
     <description>Een klassieke Snake-game geïmplementeerd in Spring Boot</description>
     <url/>
